@@ -8,15 +8,18 @@ async function bootstrap() {
   app.setGlobalPrefix('v1/tracking');
 
   // Enable the global validation pipe
-  app.useGlobalPipes(new ValidationPipe({
-    exceptionFactory: (errors) => {
-      // Custom exception factory to handle validation errors
-      const messages = errors.map(
-        error => `${error.property} - ${Object.values(error.constraints).join(', ')}`
-      );
-      return new BadRequestException(messages);
-    },
-  }));
+  app.useGlobalPipes(
+    new ValidationPipe({
+      exceptionFactory: (errors) => {
+        // Custom exception factory to handle validation errors
+        const messages = errors.map(
+          (error) =>
+            `${error.property} - ${Object.values(error.constraints).join(', ')}`,
+        );
+        return new BadRequestException(messages);
+      },
+    }),
+  );
 
   const options = new DocumentBuilder()
     .setTitle('Tracking Assessment API Collection')

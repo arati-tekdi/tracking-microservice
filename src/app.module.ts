@@ -9,6 +9,8 @@ import { TrackingAssessmentModule } from 'src/modules/tracking_assessment/tracki
 import { TrackingContentModule } from 'src/modules/tracking_content/tracking_content.module';
 import { PermissionMiddleware } from './common/middleware/permission.middleware';
 import { RolePermissionModule } from './modules/permissionRbac/rolePermissionMapping/role-permission.module';
+import { CertificateModule } from './modules/certificate/certificate.module';
+import { UserCertificateModule } from './modules/user_certificate/user_certificate.module';
 
 @Module({
   imports: [
@@ -18,12 +20,14 @@ import { RolePermissionModule } from './modules/permissionRbac/rolePermissionMap
     DatabaseModule,
     CacheModule.register({ isGlobal: true, store: MemoryStore }),
     RolePermissionModule,
+    CertificateModule,
+    UserCertificateModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(PermissionMiddleware).forRoutes('*'); // Apply middleware to the all routes
-  }
+  // configure(consumer: MiddlewareConsumer) {
+  //   consumer.apply(PermissionMiddleware).forRoutes('*'); // Apply middleware to the all routes
+  // }
 }
